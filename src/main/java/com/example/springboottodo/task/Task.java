@@ -1,6 +1,7 @@
 package com.example.springboottodo.task;
 
 import com.example.springboottodo.user.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Task {
     @GeneratedValue
     private Integer id;
     private String description;
+    @JsonProperty("completed")
     private boolean isCompleted;
     private Date created;
     private Date updated;

@@ -1,45 +1,46 @@
 package com.example.springboottodo.task;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("api/v1/task")
+@Controller
 @RequiredArgsConstructor
 public class TaskController {
 
     private final TaskService service;
 
-    @PostMapping
-    public Task addTask(@RequestBody Task task){
+    @MutationMapping
+    public Task addTask(@Argument Task task){
         return service.saveTask(task);
     }
 
-    @GetMapping
+    @QueryMapping
     public List<Task> getTasks(){
         return service.getTasks();
     }
 
-    @GetMapping("/completed")
+    @QueryMapping
     public List<Task> getCompletedTasks(){
         return service.getCompletedTasks();
     }
 
-    @GetMapping("/{id}")
-    public Task findTaskById(@PathVariable int id){
+    @QueryMapping
+    public Task findTaskById(@Argument Integer id){
         return service.getTaskById(id);
     }
 
-    @PutMapping
-    public Task updateTask(@RequestBody Task task){
+    @MutationMapping
+    public Task updateTask(@Argument Task task){
         return service.updateTask(task);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteTask(@PathVariable int id){
+    @MutationMapping
+    public String deleteTask(@Argument Integer id){
         return service.deleteProduct(id);
     }
 }
